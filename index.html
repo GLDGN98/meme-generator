@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Generator</title>
+</head>
+
+<body onload="onInit()">
+    <header class="canvas-header">
+        memegen
+    </header>
+    <section class="gallery">
+        <div class="images-container">
+        </div>
+    </section>
+    <section class="meme-canvas" hidden>
+
+        <div class="meme-editor">
+
+            <input class="meme-txt" oninput="onTxtInput(this.value)" type="text">
+            <input oninput="onColorChange(this.value)" type="color" name="" id="">
+
+
+
+            <div class="add-line">
+                <button><img onclick="onAddLine()" src="/Meme1 - Sergei/ICONS/add.png" alt="add-line"></button>
+            </div>
+            <div class="delete-line">
+                <button><img onclick="onDeleteLine()" src="/Meme1 - Sergei/ICONS/trash.png" alt=""></button>
+            </div>
+            <div class="switch-line">
+                <button><img onclick="onSwitchLine()"
+                        src="/Meme1 - Sergei/ICONS/up-and-down-opposite-double-arrows-side-by-side.png"
+                        alt="switch-line"></button>
+            </div>
+
+            <div class="control-font">
+                <select class="select-font" name="font-family" id="" onchange="onChangeFont()">
+                    <option>Impact</option>
+                    <option>Arial</option>
+                    <option>Cursive</option>
+                    <option>Times New Roman</option>
+                    <option>Shrikhand</option>
+                    <option>Paytone</option>
+
+                </select>
+            </div>
+
+            <div class="move-text">
+                <button onclick="onMoveText('right')"><i class="fa-solid fa-arrow-right"></i></button>
+                <button onclick="onMoveText('up')"><i class=" fa-solid fa-arrow-up"></i></button>
+                <button onclick="onMoveText('down')"><i class=" fa-solid fa-arrow-down"></i></button>
+                <button onclick="onMoveText('left')"><i class=" fa-solid fa-arrow-left"></i></button>
+            </div>
+
+            <div class="align-text">
+                <button><img onclick="onAlignText('left')" src="/Meme1 - Sergei/ICONS/align-to-left.png"
+                        alt="align-to-left"></button>
+                <button><img onclick="onAlignText('center')" src="/Meme1 - Sergei/ICONS/center-text-alignment.png"
+                        alt="align-text"></button>
+                <button><img onclick="onAlignText('right')" src="/Meme1 - Sergei/ICONS/align-to-right.png"
+                        alt="align-to-right"></button>
+            </div>
+
+            <div class="change-font-size-btn">
+                <button onclick="onChangeFontSize('decrease')"><img src="/Meme1 - Sergei/ICONS/decrease font - icon.png"
+                        alt="decrease"></button>
+                <button onclick="onChangeFontSize('increase')"><img src="/Meme1 - Sergei/ICONS/increase font - icon.png"
+                        alt="increase"></button>
+            </div>
+
+            <div>
+                <button class="btn download-btn">
+                    <a href="#" onclick="downloadImg(this)" class="download" download="my-img.jpg">
+                        <span class="different-color"><i class="fa fa-download"></i></span>Download
+                    </a>
+                </button>
+            </div>
+        </div>
+
+        <div class="canvas">
+            <canvas height="600px" width="600px">
+            </canvas>
+        </div>
+
+    </section>
+    <script src="https://kit.fontawesome.com/17f32add9b.js" crossorigin="anonymous"></script>
+    <script src="js/service/meme-service.js"></script>
+    <script src="js/meme-controller.js"></script>
+    <script src="js/service/storage-service.js"></script>
+    <script src="js/service/util-service.js"></script>
+    <script src="js/service/gallery-service.js"></script>
+    <script src="js/gallery-controller.js"></script>
+</body>
+
+</html>

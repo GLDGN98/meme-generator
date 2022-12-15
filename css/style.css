@@ -1,0 +1,132 @@
+* {
+    box-sizing: border-box;
+}
+
+
+@font-face {
+    font-family: 'Impact';
+    src: url("../fonts/impact.ttf");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Lato-regular;
+    src: url('../fonts/Courgette-Regular.ttf');
+}
+
+@font-face {
+    font-family: Shrikhand;
+    src: url('../fonts/Shrikhand-Regular.ttf');
+}
+
+@font-face {
+    font-family: Paytone;
+    src: url('../fonts/PaytoneOne-Regular.ttf');
+}
+
+/* @font-face {
+    font-family: Times New Roman;
+    src: url('../fonts/times.ttf');
+}
+
+ */
+
+.images-container img {
+    width: 225px;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+
+body {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+
+
+.images-container {
+    margin-top: 15vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-rows: 1fr;
+    gap: 15px;
+
+}
+
+.meme-editor .move-text button i {
+
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+}
+
+.meme-editor .switch-line button img {
+    width: 40px;
+    height: 40px;
+}
+
+.meme-editor .delete-line button img {
+    width: 40px;
+    height: 40px;
+}
+
+.meme-editor .change-font-size-btn button img {
+    width: 40px;
+    height: 40px;
+}
+
+.meme-editor .add-line button img {
+    width: 40px;
+    height: 40px;
+}
+
+.meme-editor .align-text button img {
+    width: 40px;
+    height: 40px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card button {
+    margin-top: 20px;
+}
+
+
+.canvas-header {
+    width: 100%;
+    background-color: #ff7f00;
+}
+
+
+.meme-canvas {
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: 650px 600px;
+    grid-template-rows: 60px 658px 200px;
+}
+
+
+.canvas {
+    grid-row: 2/3;
+    grid-column: 1/2;
+}
+
+
+.meme-editor {
+    grid-row: 2/3;
+    grid-column: 2/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
