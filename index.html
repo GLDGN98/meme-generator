@@ -11,85 +11,172 @@
 </head>
 
 <body onload="onInit()">
-    <header class="canvas-header">
-        memegen
-    </header>
-    <section class="gallery">
-        <div class="images-container">
+    <div class="header-background">
+        <header class="main-header">
+            <img onclick="onLogoClick()" class="logo" src="/Meme1 - Sergei/logo.png" alt="">
+            <a href="#" onclick="onOpenMemePage()" class="saved-memes">My Memes</a>
+        </header>
+    </div>
+    <div class="gallery-page">
+        <div class="search">
+            <input list="search-datalist" name="search-datalist" id="search" type="txt" class="search-words"
+                oninput="onSearchImg()" placeholder="Enter Search Category">
+
+            <datalist id="search-datalist">
+                <option value="happy">
+                <option value="politics">
+                <option value="tramp">
+                <option value="famous">
+                <option value="dog">
+                <option value="baby">
+                <option value="angry">
+                <option value="funny">
+                <option value="obama">
+                <option value="animal">
+                <option value="putin">
+            </datalist>
+
+            <i class="fa fa-search"></i>
+            <label for="file-input">
+                Upload Image
+                <i class="fa-solid fa-upload"></i>
+                <input style="display: none;" id="file-input" type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
+            </label>
         </div>
-    </section>
-    <section class="meme-canvas" hidden>
+        <section class="gallery">
+            <div class="main-content">
 
-        <div class="meme-editor">
-
-            <input class="meme-txt" oninput="onTxtInput(this.value)" type="text">
-            <input oninput="onColorChange(this.value)" type="color" name="" id="">
-
-
-
-            <div class="add-line">
-                <button><img onclick="onAddLine()" src="/Meme1 - Sergei/ICONS/add.png" alt="add-line"></button>
+                <div class="images-container">
+                </div>
             </div>
-            <div class="delete-line">
-                <button><img onclick="onDeleteLine()" src="/Meme1 - Sergei/ICONS/trash.png" alt=""></button>
+        </section>
+    </div>
+    <div class="meme-content-background" hidden>
+        <section class="meme-canvas">
+
+            <div class="meme-editor">
+
+                <input placeholder="Type Something!" class="meme-txt" oninput="onTxtInput(this.value)" type="text">
+
+                <div class="first-line">
+
+                    <div class="switch-line button-size">
+                        <button>
+                            <img class="button-size" onclick="onSwitchLine()"
+                                src="/Meme1 - Sergei/ICONS/up-and-down-opposite-double-arrows-side-by-side.png"
+                                alt="switch-line">
+                        </button>
+                    </div>
+
+                    <div class="add-line button-size">
+                        <button><img class="button-size" onclick="onAddLine()" src="/Meme1 - Sergei/ICONS/add.png"
+                                alt="add-line"></button>
+                    </div>
+
+                    <div class="delete-line button-size">
+                        <button><img class="button-size" onclick="onDeleteLine()" src="/Meme1 - Sergei/ICONS/trash.png"
+                                alt=""></button>
+                    </div>
+
+
+
+                </div>
+
+
+                <div class="second-line">
+                    <div class="move-text">
+                        <button onclick="onMoveText('right')"><i
+                                class="fa-solid fa-arrow-right button-size"></i></button>
+                        <button onclick="onMoveText('up')"><i class=" fa-solid fa-arrow-up button-size"></i></button>
+                        <button onclick="onMoveText('down')"><i
+                                class=" fa-solid fa-arrow-down button-size"></i></button>
+                        <button onclick="onMoveText('left')"><i
+                                class=" fa-solid fa-arrow-left button-size"></i></button>
+                    </div>
+                </div>
+
+                <div class="third-line">
+                    <div class="change-font-size-btn">
+                        <button onclick="onChangeFontSize('decrease')"><img class="button-size"
+                                src="/Meme1 - Sergei/ICONS/decrease font - icon.png" alt="decrease"></button>
+                        <button onclick="onChangeFontSize('increase')"><img class="button-size"
+                                src="/Meme1 - Sergei/ICONS/increase font - icon.png" alt="increase"></button>
+                    </div>
+                    <div class="align-text">
+                        <button><img class="button-size" onclick="onAlignText('left')"
+                                src="/Meme1 - Sergei/ICONS/align-to-left.png" alt="align-to-left"></button>
+                        <button><img class="button-size" onclick="onAlignText('center')"
+                                src="/Meme1 - Sergei/ICONS/center-text-alignment.png" alt="align-text"></button>
+                        <button><img class="button-size" onclick="onAlignText('right')"
+                                src="/Meme1 - Sergei/ICONS/align-to-right.png" alt="align-to-right"></button>
+                    </div>
+
+
+                </div>
+                <div class="fourth-line">
+                    <div class="control-font">
+                        <select class="select-font" name="font-family" id="" onchange="onChangeFont()">
+                            <option>Impact</option>
+                            <option>Arial</option>
+                            <option>Cursive</option>
+                            <option>Times New Roman</option>
+                            <option>Shrikhand</option>
+                            <option>Paytone</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="color-input">
+                            <img class="button-size color-input-img"
+                                src="/Meme1 - Sergei/ICONS/paint-board-and-brush.png" alt="">
+                            <input style="opacity: 0;" class="color-input" oninput="onColorChange(this.value)"
+                                type="color" name="" id="color-input">
+                        </label>
+                    </div>
+
+                </div>
+                <div class="emoji-line">
+                </div>
+                <div class="fifth-line">
+                    <button class="btn download-btn">
+                        <a href="#" onclick="downloadImg(this)" class="download" download="my-img.jpg">
+                            <span class="different-color"><i class="fa fa-download"></i></span>Download
+                        </a>
+                    </button>
+                    <div class="btn save-btn">
+                        <button onclick="onSaveMeme()">Save</button>
+
+                    </div>
+                    <div>
+                        <button onclick="onUploadImg()" class="share-btn">Share</button>
+                    </div>
+                </div>
+
             </div>
-            <div class="switch-line">
-                <button><img onclick="onSwitchLine()"
-                        src="/Meme1 - Sergei/ICONS/up-and-down-opposite-double-arrows-side-by-side.png"
-                        alt="switch-line"></button>
+            <div class="canvas">
+                <canvas height="600px" width="600px">
+                </canvas>
             </div>
+        </section>
 
-            <div class="control-font">
-                <select class="select-font" name="font-family" id="" onchange="onChangeFont()">
-                    <option>Impact</option>
-                    <option>Arial</option>
-                    <option>Cursive</option>
-                    <option>Times New Roman</option>
-                    <option>Shrikhand</option>
-                    <option>Paytone</option>
 
-                </select>
+        <footer>
+            <div class="footer-background">
+                <img class="logo logo-footer" src="/Meme1 - Sergei/logo.png" alt="">
+                <div>
+                    <small>all rights reserved 2022</small>
+                </div>
             </div>
+        </footer>
+    </div>
+    <div class="meme-page" hidden>
+        <h1 class="fav-meme-title">Your favorite memes!</h1>
+        <div class="fav-meme-images"></div>
+    </div>
 
-            <div class="move-text">
-                <button onclick="onMoveText('right')"><i class="fa-solid fa-arrow-right"></i></button>
-                <button onclick="onMoveText('up')"><i class=" fa-solid fa-arrow-up"></i></button>
-                <button onclick="onMoveText('down')"><i class=" fa-solid fa-arrow-down"></i></button>
-                <button onclick="onMoveText('left')"><i class=" fa-solid fa-arrow-left"></i></button>
-            </div>
 
-            <div class="align-text">
-                <button><img onclick="onAlignText('left')" src="/Meme1 - Sergei/ICONS/align-to-left.png"
-                        alt="align-to-left"></button>
-                <button><img onclick="onAlignText('center')" src="/Meme1 - Sergei/ICONS/center-text-alignment.png"
-                        alt="align-text"></button>
-                <button><img onclick="onAlignText('right')" src="/Meme1 - Sergei/ICONS/align-to-right.png"
-                        alt="align-to-right"></button>
-            </div>
-
-            <div class="change-font-size-btn">
-                <button onclick="onChangeFontSize('decrease')"><img src="/Meme1 - Sergei/ICONS/decrease font - icon.png"
-                        alt="decrease"></button>
-                <button onclick="onChangeFontSize('increase')"><img src="/Meme1 - Sergei/ICONS/increase font - icon.png"
-                        alt="increase"></button>
-            </div>
-
-            <div>
-                <button class="btn download-btn">
-                    <a href="#" onclick="downloadImg(this)" class="download" download="my-img.jpg">
-                        <span class="different-color"><i class="fa fa-download"></i></span>Download
-                    </a>
-                </button>
-            </div>
-        </div>
-
-        <div class="canvas">
-            <canvas height="600px" width="600px">
-            </canvas>
-        </div>
-
-    </section>
     <script src="https://kit.fontawesome.com/17f32add9b.js" crossorigin="anonymous"></script>
+    <script src="js/service/upload-service.js"></script>
     <script src="js/service/meme-service.js"></script>
     <script src="js/meme-controller.js"></script>
     <script src="js/service/storage-service.js"></script>
