@@ -182,6 +182,7 @@ function onOpenMemePage() {
     document.querySelector('.gallery-page').hidden = true
     const memeEditor = document.querySelector('.meme-content-background').hidden = true
     document.querySelector('.meme-page').hidden = false
+    document.querySelector('.gallery-footer').hidden = true
     renderSavedMemes()
 
 

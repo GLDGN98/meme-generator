@@ -29,6 +29,7 @@ function selectImg(img) {
     console.log(img);
     document.querySelector('.gallery-page').hidden = true
     document.querySelector('.meme-content-background').hidden = false
+    document.querySelector('.gallery-footer').hidden = true
     var picture = findImageById(img.id)
     initMeme(picture)
     saveCurrImg(picture);
@@ -49,6 +50,8 @@ function onLogoClick() {
     document.querySelector('.meme-page').hidden = true
     document.querySelector('.meme-content-background').hidden = true
     document.querySelector('.gallery-page').hidden = false
+    document.querySelector('.gallery-footer').hidden = false
+
 
 
 }
