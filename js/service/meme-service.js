@@ -13,7 +13,9 @@ var gMeme = {
             align: 'left',
             color: 'white',
             posX: 50,
-            posY: 65
+            posY: 65,
+            isDrag: false
+
         },
         {
             txt: '',
@@ -22,7 +24,9 @@ var gMeme = {
             align: 'left',
             color: 'white',
             posX: 50,
-            posY: 500
+            posY: 500,
+            isDrag: false
+
         },
         {
             txt: '',
@@ -31,7 +35,9 @@ var gMeme = {
             align: 'left',
             color: 'white',
             posX: 50,
-            posY: 240
+            posY: 240,
+            isDrag: false
+
         }
     ]
 }
@@ -168,6 +174,31 @@ function onUploadImg() {
     // Send the image to the server
     doUploadImg(imgDataUrl, onSuccess)
 }
+function setLineDrag(isDrag) {
+    gMeme.lines[lineIdx].isDrag = isDrag
+}
+
+function isLineClicked(clickedPos) {
+    const { posX, posY } = gMeme.lines[lineIdx]
+    console.log(posX, posY, 'hello');
+    console.log(clickedPos.x, 'clicked pos x');
+
+
+    // Calc the distance between two dots
+    const distance = Math.sqrt((posX - clickedPos.x) ** 2 + (posY - clickedPos.y) ** 2)
+    //If its smaller then the radius of the circle we are inside
+    console.log(distance);
+
+    return distance <= posX, posY
+}
+
+function moveLine(dx, dy) {
+    gMeme.lines[lineIdx].posX += dx
+    gMeme.lines[lineIdx].posY += dy
+
+}
+
+
 
 
 

@@ -41,7 +41,6 @@ body {
     overflow-y: hidden;
 }
 
-
 .header-background {
     width: 100%;
     background-color: #ff7f00;
@@ -60,9 +59,8 @@ header {
 .logo {
     margin-top: 1.4em;
     cursor: pointer;
-    padding-left: 15px;
+    padding-left: 10px;
 }
-
 
 .main-content {
     max-width: 1200px;
@@ -406,7 +404,6 @@ footer small {
     cursor: pointer;
 }
 
-
 .meme-page {
     max-width: 1200px;
     margin: 0 auto;
@@ -455,7 +452,6 @@ footer small {
     width: 40px;
     height: 40px;
 }
-
 
 @media (max-width: 1200px) {
     .gallery-page label {

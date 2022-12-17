@@ -15,6 +15,7 @@ var emojis;
 var gEmojiPageIdx = 0
 const EMOJI_COUNT = 3
 var gCurrUploadedImg;
+var gStartPos;
 
 // ! fix selectLine
 // ! fix the emojis
@@ -43,12 +44,12 @@ function renderCanvasImage() {
     if (gCurrUploadedImg) {
         imgCanvas.src = gCurrUploadedImg.src
     } else imgCanvas.src = gCurrImg.url;
-    renderEmoji()
     imgCanvas.onload = function () {
 
         drawImage(this);
         showPlaceholder()
         renderText()
+        renderEmoji()
 
     };
 
@@ -127,8 +128,6 @@ function selectLineByClick(x, y) {
     }
 }
 
-
-
 // function selectedLine(i) {
 //     gCtx.rect(gMeme.lines[lineIdx].posX - 10, gMeme.lines[lineIdx].posY - 55, 500, 90);
 //     gCtx.stroke()
@@ -140,6 +139,12 @@ function initMeme(img) {
     gCtx = gCanvas.getContext('2d');
     gCurrImg = img
     renderCanvasImage()
+    addListeners()
+}
+
+function addListeners() {
+    addMouseListeners()
+    addTouchListeners()
 }
 
 function renderText() {
@@ -161,7 +166,6 @@ function renderText() {
     }
 
 }
-
 
 function onChangeFont() {
     var elFont = document.querySelector('.select-font').value;
@@ -219,7 +223,6 @@ function onDeleteLine() {
 }
 
 //! make the prev selected line dissapear after switching lines
-
 function onColorChange(color) {
     txtColorChange(color, lineIdx)
     renderCanvasImage()
@@ -263,14 +266,75 @@ function renderImage(img) {
     document.querySelector('.meme-content-background').hidden = false
     document.querySelector('.meme-canvas').hidden = false
 }
+function getEvPos(ev) {
+    // Gets the offset pos , the default pos
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY,
+    }
+    // Check if its a touch ev
+    // if (TOUCH_EVS.includes(ev.type)) {
+    //     console.log('ev:', ev)
+    //     //soo we will not trigger the mouse ev
+    //     ev.preventDefault()
+    //     //Gets the first touch point
+    //     ev = ev.changedTouches[0]
+    //     //Calc the right pos according to the touch screen
+    //     pos = {
+    //         x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+    //         y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+    //     }
 
-function resizeCanvas() {
-    // const elContainer = document.querySelector('.canvas-container')
-    // // Note: changing the canvas dimension this way clears the canvas
-    // gElCanvas.width = elContainer.offsetWidth - 20
-    // // Unless needed, better keep height fixed.
-    // // gElCanvas.height = elContainer.offsetHeight
-
-
+    return pos
 }
+
+function addMouseListeners() {
+    gCanvas.addEventListener('mousemove', onMove)
+    gCanvas.addEventListener('mousedown', onDown)
+    gCanvas.addEventListener('mouseup', onUp)
+}
+
+function addTouchListeners() {
+    gCanvas.addEventListener('touchmove', onMove)
+    gCanvas.addEventListener('touchstart', onDown)
+    gCanvas.addEventListener('touchend', onUp)
+}
+
+function onDown(ev) {
+    const pos = getEvPos(ev)
+    console.log(pos);
+
+    if (!isLineClicked(pos)) return
+    setLineDrag(true)
+    console.log('hi');
+    gStartPos = pos
+    document.body.style.cursor = 'grabbing'
+}
+
+function onMove(ev) {
+    const { isDrag } = gMeme.lines[lineIdx]
+    if (!isDrag) return
+    const pos = getEvPos(ev)
+    const dx = pos.x - gStartPos.x
+    const dy = pos.y - gStartPos.y
+    moveLine(dx, dy)
+    gStartPos = pos
+    renderCanvasImage()
+}
+
+function onUp() {
+    setLineDrag(false)
+    document.body.style.cursor = 'default'
+}
+
+// function resizeCanvas() {
+//     // const elContainer = document.querySelector('.canvas-container')
+//     // // Note: changing the canvas dimension this way clears the canvas
+//     // gElCanvas.width = elContainer.offsetWidth - 20
+//     // // Unless needed, better keep height fixed.
+//     // // gElCanvas.height = elContainer.offsetHeight
+
+
+// }
+
 
