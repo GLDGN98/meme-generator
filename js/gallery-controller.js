@@ -25,8 +25,6 @@ function onSearchImg() {
 }
 
 function selectImg(img) {
-    // localStorage.clear();
-    console.log(img);
     document.querySelector('.gallery-page').hidden = true
     document.querySelector('.meme-content-background').hidden = false
     document.querySelector('.gallery-footer').hidden = true
@@ -34,7 +32,6 @@ function selectImg(img) {
     initMeme(picture)
     saveCurrImg(picture);
 }
-
 
 function filterImages(imgs) {
     var userSearch = document.getElementById('search').value;
@@ -53,5 +50,23 @@ function onLogoClick() {
     document.querySelector('.gallery-footer').hidden = false
 
 
+
+}
+
+function onOpenMemePage() {
+    document.querySelector('.gallery-page').hidden = true
+    const memeEditor = document.querySelector('.meme-content-background').hidden = true
+    document.querySelector('.meme-page').hidden = false
+    document.querySelector('.gallery-footer').hidden = true
+    renderSavedMemes()
+
+
+}
+
+function onToggleMenu() {
+    const hamburger = document.querySelector('.hamburger')
+    const navMenu = document.querySelector('.nav-menu')
+
+    navMenu.classList.toggle('show')
 
 }

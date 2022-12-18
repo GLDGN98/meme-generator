@@ -1,5 +1,7 @@
-
-
+var emojis;
+var AddedToFav = false
+var gCurrUploadedImg;
+var gStartPos;
 
 var gMeme = {
     selectedImgId: 5, // get the id from the image
@@ -13,7 +15,7 @@ var gMeme = {
             align: 'left',
             color: 'white',
             posX: 50,
-            posY: 65,
+            posY: 70,
             isDrag: false
 
         },
@@ -42,6 +44,12 @@ var gMeme = {
     ]
 }
 
+function getEmojis() {
+    emojis = ["😁", "🤣", "😎", "😑", "😯", "🥱", "😴", "😌", "😛", "😮", "🤨", "😲", "🤯", "😤", "🤓"]
+    var startIdx = gEmojiPageIdx * EMOJI_COUNT
+    return emojis.slice(startIdx, startIdx + EMOJI_COUNT)
+}
+
 function changeFontSize(size, i) {
     size === 'increase' ? gMeme.lines[i].size++ : gMeme.lines[i].size--
     // renderText(size)
@@ -54,9 +62,11 @@ function showPlaceholder() {
     var LinePlaceholderHeight = gMeme.lines[lineIdx].posY
     var lineBreakPos = gCanvas.width - 50
     if (!gMeme.lines[lineIdx].txt) {
-        gCtx.font = `${gMeme.lines[lineIdx].size}px ${gMeme.font}`
-        gCtx.fillStyle = 'black'
+        gCtx.font = '40px Impact'
+        gCtx.fillStyle = 'white'
+        gCtx.strokeStyle = 'black'
         gCtx.fillText('Type here!', gMeme.lines[lineIdx].posX, LinePlaceholderHeight)
+        gCtx.strokeText('Type here!', gMeme.lines[lineIdx].posX, LinePlaceholderHeight)
     }
 }
 
@@ -81,8 +91,10 @@ function txtInput(value, i) {
 }
 
 function switchLine() {
+
     if (lineIdx === 2 || !gMeme.lines[lineIdx + 1].txt) {
         return lineIdx = 0
+
     }
     lineIdx++
     document.querySelector('.meme-txt').value = gMeme.lines[lineIdx].txt
@@ -141,8 +153,6 @@ function alignText(align, i) {
 
 function onDeleteSavedMeme(memeId) {
     var pickedMeme = savedMeme.findIndex(meme => memeId === meme.id)
-    console.log(pickedMeme);
-    console.log(savedMeme);
     savedMeme.splice(pickedMeme, 1)
     saveToStorage('myFavMemes', savedMeme)
     renderSavedMemes()
@@ -162,6 +172,36 @@ function downloadImg(elImg) {
     elImg.href = currImg;
 }
 
+function getCursorPosition(canvas, event) {
+    const rect = canvas.getBoundingClientRect()
+    const x = event.clientX - rect.left
+    const y = event.clientY - rect.top
+    selectLineByClick(x, y)
+}
+
+function changeEmojiPage(val) {
+    if (val === 1) {
+        gEmojiPageIdx++
+    }
+    if (val === -1) {
+        gEmojiPageIdx--
+    }
+    if (gEmojiPageIdx > emojis.length / EMOJI_COUNT) {
+        gEmojiPageIdx = 1
+    }
+}
+
+function showCurrentLine(i) {
+    if (!AddedToFav) {
+        if (i === lineIdx) {
+            gCtx.strokeStyle = 'white'
+            gCtx.strokeRect(gMeme.lines[lineIdx].posX - 500, gMeme.lines[lineIdx].posY - 65, 2000, 100)
+        } else return
+    } {
+        return
+    }
+}
+
 function onUploadImg() {
     const imgDataUrl = gCanvas.toDataURL('image/jpeg') // Gets the canvas content as an image format
 
@@ -174,21 +214,17 @@ function onUploadImg() {
     // Send the image to the server
     doUploadImg(imgDataUrl, onSuccess)
 }
+
 function setLineDrag(isDrag) {
     gMeme.lines[lineIdx].isDrag = isDrag
 }
 
 function isLineClicked(clickedPos) {
     const { posX, posY } = gMeme.lines[lineIdx]
-    console.log(posX, posY, 'hello');
-    console.log(clickedPos.x, 'clicked pos x');
-
-
-    // Calc the distance between two dots
+    // 50 65
+    var pos = { posX, posY }
     const distance = Math.sqrt((posX - clickedPos.x) ** 2 + (posY - clickedPos.y) ** 2)
-    //If its smaller then the radius of the circle we are inside
-    console.log(distance);
-
+    var pos = { posX, posY }
     return distance <= posX, posY
 }
 
@@ -198,9 +234,45 @@ function moveLine(dx, dy) {
 
 }
 
+function loadImageFromInput(ev, onImageReady) {
+    const reader = new FileReader()
+    // After we read the file
+    reader.onload = (event) => {
+        let img = new Image() // Create a new html img element
+        img.src = event.target.result // Set the img src to the img file we read
+        // Run the callBack func, To render the img on the canvas
+        img.onload = () => onImageReady(img)
+    }
+    reader.readAsDataURL(ev.target.files[0]) // Read the file we picked
+}
+
+function getEvPos(ev) {
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY,
+    }
+    return pos
+}
+
+function resetgMeme() {
+    for (var i = 0; i < 3; i++) {
+        console.log(i);
+        gMeme.lines[i].txt = ''
+        lineIdx = 0
+        document.querySelector('.meme-txt').value = ''
+        gMeme.lines[0].posY = 70
+        gMeme.lines[0].posX = 50
+    }
+}
 
 
 
 
 
-// !fix aligning 
+
+
+
+// ! show current line
+// ! fix emoji
+// ! add navbar
+// ! fix drag and drop

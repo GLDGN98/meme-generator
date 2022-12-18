@@ -14,7 +14,15 @@
     <div class="header-background">
         <header class="main-header">
             <img onclick="onLogoClick()" class="logo" src="Meme1 - Sergei/logo.png" alt="">
-            <a href="#" onclick="onOpenMemePage()" class="saved-memes">My Memes</a>
+            <div onclick="onToggleMenu()" class="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" onclick="onOpenMemePage()" class="saved-memes">MyMemes</a>
+                <a href="">Gallery</a>
+                <a href="">About</a>
+            </nav>
+
         </header>
     </div>
     <div class="gallery-page">
